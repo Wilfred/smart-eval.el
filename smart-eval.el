@@ -59,15 +59,19 @@
 
 ;;;###autoload
 (defun smart-eval-sexp ()
+  "Evaluate the sexp before point."
   (interactive)
+  
   )
 
 (defun smart-eval-outer-sexp (prefix)
+  "Evaluate the top-level sexp that point is currently inside."
   (interactive "P")
   (edebug-eval-defun prefix))
 
 ;;;###autoload
 (defun smart-eval-region (beg end)
+  "Evaluate all sexps in the region."
   (interactive "r")
   (save-excursion
     (goto-char beg)
@@ -78,6 +82,7 @@
 
 ;;;###autoload
 (defun smart-eval-buffer ()
+  "Evaluate the current buffer."
   (interactive)
   (smart-eval-region (point-min) (point-max)))
 
