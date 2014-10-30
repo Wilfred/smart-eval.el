@@ -54,20 +54,29 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
-(require 'shut-up)
+;; (require 'shut-up)
 (require 'edebug)
+(require 'lisp-mode)
+
+(defun smart-eval--eval (form)
+  (with-temp-buffer
+    (princ form (current-buffer))
+    (edebug-eval-defun nil)))
 
 ;;;###autoload
-(defun smart-eval-sexp ()
-  "Evaluate the sexp before point."
+(defun smart-eval-last-sexp ()
+  "Evaluate the sexp before point.
+If the sexp is a `defvar', `defcustom' or `defface' form,
+reset the variable."
   (interactive)
-  
-  )
+  (let ((form (preceding-sexp)))
+    (smart-eval--eval form)))
 
-(defun smart-eval-outer-sexp (prefix)
+;;;###autoload
+(defun smart-eval-outer-sexp ()
   "Evaluate the top-level sexp that point is currently inside."
-  (interactive "P")
-  (edebug-eval-defun prefix))
+  (interactive)
+  (smart-eval--eval (edebug-read-top-level-form)))
 
 ;;;###autoload
 (defun smart-eval-region (beg end)
@@ -78,7 +87,7 @@
     (while (< (point) end)
       (forward-sexp)
       (shut-up
-        (smart-eval-outer-sexp nil)))))
+        (smart-eval-outer-sexp)))))
 
 ;;;###autoload
 (defun smart-eval-buffer ()
