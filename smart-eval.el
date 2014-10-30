@@ -53,10 +53,9 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
+;;; Code:
 (require 'shut-up)
 (require 'edebug)
-
-;;; Code:
 
 ;;;###autoload
 (defun smart-eval-sexp ()
