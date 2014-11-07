@@ -54,7 +54,7 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
-;; (require 'shut-up)
+(require 'shut-up)
 (require 'edebug)
 (require 'lisp-mode)
 
